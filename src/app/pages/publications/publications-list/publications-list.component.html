@@ -1,0 +1,63 @@
+<div class="container-fluid">
+  <app-page-title title="Advanced Table" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+  <div class="row">
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Advanced Data Table</h4>
+          <a href="publications/add-publication" class="btn btn-primary">Ajouter Publication</a>
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover table-striped">
+            <thead>
+              <tr>
+                <th>user</th>
+                <th>titre</th>
+                <th>texte</th>
+                <th>photo</th>
+                <th>date</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let publication of publications">                
+                <td>{{ publication.user.nom }} {{ publication.user.prenom }}</td>
+                <td>{{ publication.titre }}</td>
+                <td><div [innerHTML]="publication.texte"></div></td>
+                <td><img class="img" src="{{ publication.photo }}" alt="{{ publication.titre }}"></td>
+                <td>{{ publication.date.toDate() | date:'short'}}</td>
+                <td>
+                  <a href="publications/edit-publication/{{ publication.id }}" class="btn btn-success">Modifier</a>
+                  <a (click)="confirm(publication.id)" class="btn btn-danger">Supprimer</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #content role="document" let-modal>
+  <div class="modal-header">
+    <h5 class="modal-title mt-0">Modal Heading</h5>
+    <button type="button" class="close" aria-hidden="true" (click)="modal.dismiss('Cross click')">×</button>
+  </div>
+  <div class="modal-body">
+    <h5>Overflowing text to show scroll behavior</h5>
+    <p>Cras mattis consectetur purus sit amet fermentum.
+      Cras justo odio, dapibus ac facilisis in,
+      egestas eget quam. Morbi leo risus, porta ac
+      consectetur ac, vestibulum at eros.</p>
+    <p>Praesent commodo cursus magna, vel scelerisque
+      nisl consectetur et. Vivamus sagittis lacus vel
+      augue laoreet rutrum faucibus dolor auctor.</p>
+    <p>Aenean lacinia bibendum nulla sed consectetur.
+      Praesent commodo cursus magna, vel scelerisque
+      nisl consectetur et. Donec sed odio dui. Donec
+      ullamcorper nulla non metus auctor
+      fringilla.</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-light" (click)="modal.close('Close click')">Close</button>
+    <button type="button" class="btn btn-primary">Save changes</button>
+  </div>
+</ng-template>

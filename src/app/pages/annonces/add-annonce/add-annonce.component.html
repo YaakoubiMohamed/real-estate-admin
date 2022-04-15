@@ -1,0 +1,150 @@
+<div class="container-fluid">
+
+    <!-- start page title -->
+    <app-page-title title="Form Validation" [breadcrumbItems]="breadCrumbItems"></app-page-title>
+    <!-- end page title -->
+  
+    
+  
+    <div class="row">
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title">Ajouter annonce</h4>
+            
+            <form (ngSubmit)="formSubmit()" [formGroup]="AnnonceForm">
+              <div class="mb-3">
+                <label class="form-label">Titre</label>
+                <input type="text" class="form-control" formControlName="titre"
+                  [ngClass]="{'is-invalid': formsubmit && form.titre.errors}" placeholder="Type something" />
+                <div *ngIf="formsubmit && form.titre.errors" class="invalid-feedback">
+                  <span *ngIf="form.titre.errors.required">This value is required.</span>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Prix</label>
+                <div>
+                  <input type="text" class="form-control" placeholder="Prix" formControlName="prix"
+                    [ngClass]="{'is-invalid': formsubmit && form.prix.errors}" />
+                  <div *ngIf="formsubmit && form.prix.errors" class="invalid-feedback">
+                    <span *ngIf="form.prix.errors.required">This value is required.</span>
+                   
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">surface</label>
+                <div>
+                  <input type="text" class="form-control" formControlName="surface"
+                    [ngClass]="{'is-invalid': formsubmit && form.surface.errors}" placeholder="surface" />
+                  <div *ngIf="formsubmit && form.surface.errors" class="invalid-feedback">
+                    <span *ngIf="form.surface.errors.required">This value is required.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">nbr_piece</label>
+                <div>
+                  <input type="text" class="form-control" formControlName="nbr_piece"
+                    [ngClass]="{'is-invalid': formsubmit && form.nbr_piece.errors}" placeholder="nbr_piece" />
+                  <div *ngIf="formsubmit && form.nbr_piece.errors" class="invalid-feedback">
+                    <span *ngIf="form.nbr_piece.errors.required">This value is required.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">type</label>
+                <div>
+                  <input type="text" class="form-control" placeholder="type" formControlName="type"
+                    [ngClass]="{'is-invalid': formsubmit && form.type.errors}" />
+                  <div *ngIf="formsubmit && form.type.errors" class="invalid-feedback">
+                    <span *ngIf="form.type.errors.required">This value is required.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">etage</label>
+                <div>
+                  <input formControlName="etage" type="text" class="form-control"
+                    [ngClass]="{'is-invalid': formsubmit && form.etage.errors}" placeholder="etage" />
+                  <div *ngIf="formsubmit && form.etage.errors" class="invalid-feedback">
+                    <span *ngIf="form.etage.errors.required">This value is required.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">adresse</label>
+                <div>
+                  <input formControlName="adresse" type="text" class="form-control"
+                    [ngClass]="{'is-invalid': formsubmit && form.adresse.errors}" placeholder="adresse">
+                  <div *ngIf="formsubmit && form.adresse.errors" class="invalid-feedback">
+                    <span *ngIf="form.adresse.errors.required">This value is required.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">ville</label>
+                <div>
+                  <select  formControlName="ville" type="text" class="form-control"
+                  [ngClass]="{'is-invalid': formsubmit && form.ville.errors}" placeholder="ville">
+                  <option value="{{ville}}" *ngFor="let ville of villes">{{ville}}</option>
+                </select>
+                  
+                  <div *ngIf="formsubmit && form.ville.errors" class="invalid-feedback">
+                    <span *ngIf="form.ville.errors.required">This value is required.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">delegation</label>
+                <div>
+                  <select  formControlName="delegation" type="text" class="form-control"
+                  [ngClass]="{'is-invalid': formsubmit && form.delegation.errors}" placeholder="delegation">
+                  <option value="{{ville}}" *ngFor="let ville of villes">{{ville}}</option>
+                </select>
+                  <div *ngIf="formsubmit && form.delegation.errors" class="invalid-feedback">
+                    <span *ngIf="form.delegation.errors.required">This value is required.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">code postale</label>
+                <div>
+                  <input formControlName="cpostal" type="text" class="form-control"
+                    [ngClass]="{'is-invalid': formsubmit && form.cpostal.errors}" placeholder="code postale">
+                  <div *ngIf="formsubmit && form.cpostal.errors" class="invalid-feedback">
+                    <span *ngIf="form.cpostal.errors.required">This value is required.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">description</label>
+                <div>
+                  <textarea formControlName="description" class="form-control" rows="5"
+                    [ngClass]="{'is-invalid': formsubmit && form.description.errors}"></textarea>
+                  <div *ngIf="formsubmit && form.description.errors" class="invalid-feedback">
+                    <span *ngIf="form.description.errors.required">This value is required.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="mb-3">
+                <label class="form-label">photo</label>
+                <div>
+                    <input class="form-control" name="file" type="file" multiple (change)="onFileChange($event)" />
+                </div>
+              </div>
+              <div class="d-flex flex-wrap gap-2">
+                <button type="submit" class="btn btn-primary waves-effect waves-light">
+                    Submit
+                </button>
+                <button type="reset" class="btn btn-secondary waves-effect">
+                    Cancel
+                </button>
+            </div>
+            </form>
+          </div>
+        </div>
+      </div>  
+    </div>
+  </div>
+  
