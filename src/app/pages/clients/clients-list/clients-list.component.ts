@@ -44,7 +44,7 @@ export class ClientsListComponent implements OnDestroy, OnInit {
       pageLength: 10
     };
 
-    this.breadCrumbItems = [{ label: 'Tables' }, { label: 'Advanced User', active: true }];
+    this.breadCrumbItems = [{ label: 'Accueil' }, { label: 'Liste des clients', active: true }];
     /**
      * fetch data
      */
@@ -78,5 +78,17 @@ export class ClientsListComponent implements OnDestroy, OnInit {
       }
     });
     
+  }
+
+  bloquer(client){
+    this.service.blockUser(client.id).subscribe(res=>{
+      console.log(res);
+    })
+  }
+
+  delete(client){
+    this.service.deleteUser(client.id).then(res=>{
+      console.log(res);
+    })
   }
 }

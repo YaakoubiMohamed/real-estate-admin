@@ -46,7 +46,7 @@ export class AgentsListComponent implements OnDestroy, OnInit {
       pageLength: 10
     };
 
-    this.breadCrumbItems = [{ label: 'Tables' }, { label: 'Advanced User', active: true }];
+    this.breadCrumbItems = [{ label: 'Acceuil' }, { label: 'Liste des Agents', active: true }];
     /**
      * fetch data
      */
@@ -61,6 +61,12 @@ export class AgentsListComponent implements OnDestroy, OnInit {
   ngOnDestroy(): void {
     // Do not forget to unsubscribe the event
     this.dtTrigger.unsubscribe();
+  }
+
+  delete(agent){
+    this.service.deleteUser(agent.id).then(res=>{
+      console.log(res);
+    })
   }
 
 

@@ -10,6 +10,7 @@ import { User } from '../classes/user';
   providedIn: 'root'
 })
 export class UserService {
+  
 
   users: Observable<User[]>;
 
@@ -19,6 +20,11 @@ export class UserService {
   addUser(user:User){
     const newuser = collection(this.afs, 'users'); 
     return addDoc(newuser, user);
+  }
+
+  blockUser(id: any) {
+    const userDocRef = doc(this.afs, `users/${id}`);
+    return docData(userDocRef, { idField: 'id' }) as Observable<User>;
   }
 
   getUsers(): Observable<User[]>{

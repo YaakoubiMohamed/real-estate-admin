@@ -4,6 +4,9 @@
     overflow: auto !important;
     width: 100% !important;
   }
+  .img{
+    width: 100%;
+  }
   html,
   body {
     background-color: #e4e5e6;
