@@ -38,7 +38,7 @@ export class AuthenticationService {
 
 
   // Sign in with email/password
-  login(email,password) {
+  login(email: string,password: string) {
       console.log(email,password);
     return this.afAuth
       .signInWithEmailAndPassword(email, password)
@@ -96,7 +96,7 @@ export class AuthenticationService {
   }
 
 
-  changePassword(token, newPassword) {
+  changePassword(token: string, newPassword: string) {
     return this.afAuth.confirmPasswordReset(token, newPassword);
   }
 

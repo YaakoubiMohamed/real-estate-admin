@@ -10,7 +10,7 @@ import { Annonce } from '../classes/annonce';
   providedIn: 'root'
 })
 export class AnnonceService {
-  annonces: Observable<Annonce[]>;
+  annonces!: Observable<Annonce[]>;
 
 
   constructor(public afs:Firestore) { }
@@ -24,7 +24,7 @@ export class AnnonceService {
     const annonces = collection(this.afs, 'annonces');
    return collectionData(annonces, { idField: 'id' }) as Observable<Annonce[]>;
   }
-  deleteAnnonce(id) {
+  deleteAnnonce(id: string) {
     const annonceDocRef = doc(this.afs, `annonces/${id}`);
     return deleteDoc(annonceDocRef);
   }
@@ -34,7 +34,7 @@ export class AnnonceService {
     return docData(annonceDocRef, { idField: 'id' }) as Observable<Annonce>;
   }
   
-  updateAnnonce(annonce: Annonce,id) {
+  updateAnnonce(annonce: Annonce,id: string) {
     const annonceDocRef = doc(this.afs, `annonces/${id}`);
     return setDoc(annonceDocRef, annonce);
   }

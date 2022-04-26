@@ -16,7 +16,7 @@ const routes: Routes = [
         component: AddPublicationComponent
     },
     {
-        path: 'edit-publication',
+        path: 'edit-publication/:id',
         component: EditPublicationComponent
     }
 ];

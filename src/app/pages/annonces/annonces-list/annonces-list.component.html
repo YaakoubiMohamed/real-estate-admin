@@ -7,7 +7,7 @@
           <h4 class="card-title">Liste des annonces</h4>
          
           <a href="annonces/add-annonce" class="btn btn-primary">Ajouter Annonce</a>
-          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover table-striped">
+          <table datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-bordered table-hover table-striped table-responsive">
             <thead>
               <tr>
                 <th>user</th>
@@ -25,11 +25,11 @@
                 <td>{{ annonce.titre }}</td>
                 <td>{{ annonce.prix }} DT</td>
                 <td>{{ annonce.surface }} m²</td>
-                <td>{{ annonce.description }}</td>
+                <td><p class="desc">{{ annonce.description }}</p></td>
                 <td>{{ annonce.type }}</td>
                 <td>
-                  <a href="annonces/edit-annonce/{{ annonce.id }}" class="btn btn-success">Edit</a>
-                  <a (click)="confirm(annonce.id)" class="btn btn-danger">Delete</a>
+                  <a href="annonces/edit-annonce/{{ annonce.id }}" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                  <a (click)="confirm(annonce.id)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                 </td>
               </tr>
             </tbody>

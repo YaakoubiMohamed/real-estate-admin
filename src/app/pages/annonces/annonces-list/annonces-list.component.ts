@@ -7,7 +7,6 @@ import { Annonce } from './annonce.model';
 
 //import { annonces, editableTable } from './data';
 
-import { AnnoncesListDirective, SortEvent } from './annonce-sortable.directive';
 import { AnnonceService } from '../../shared/services/annonce.service';
 import Swal from 'sweetalert2';
 
@@ -23,16 +22,15 @@ import Swal from 'sweetalert2';
  */
 export class AnnoncesListComponent implements OnDestroy, OnInit {
   // bread crum data
-  breadCrumbItems: Array<{}>;
+  breadCrumbItems!: Array<{}>;
   // Annonce data
   //annonces: Annonce[];
   public selected: any;
   hideme: boolean[] = [];
-  annonces$: Observable<Annonce[]>;
-  total$: Observable<number>;
+  annonces$!: Observable<Annonce[]>;
+  total$!: Observable<number>;
   editableTable: any;
 
-  @ViewChildren(AnnoncesListDirective) headers: QueryList<AnnoncesListDirective>;
   public isCollapsed = true;
   dtOptions: DataTables.Settings = {};
   annonces: Annonce[] = [];
@@ -45,7 +43,7 @@ export class AnnoncesListComponent implements OnDestroy, OnInit {
     
   }
 
-  delete(id){
+  delete(id: string){
     this.service.deleteAnnonce(id);
   }
 
@@ -62,7 +60,7 @@ export class AnnoncesListComponent implements OnDestroy, OnInit {
     this._fetchData();
   }
 
-  changeValue(i) {
+  changeValue(i: number) {
     this.hideme[i] = !this.hideme[i];
   }
 
@@ -89,7 +87,7 @@ export class AnnoncesListComponent implements OnDestroy, OnInit {
   }
 
 
-  confirm(id) {
+  confirm(id: string) {
     Swal.fire({
       title: 'Êtes-vous sûr?',
       text: 'Vous ne pourrez pas revenir en arrière!',
@@ -97,7 +95,8 @@ export class AnnoncesListComponent implements OnDestroy, OnInit {
       showCancelButton: true,
       confirmButtonColor: '#34c38f',
       cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'Oui!'
+      confirmButtonText: 'Oui!',
+      cancelButtonText: 'Annuler!'
     }).then(result => {
       if (result.value) {
         this.delete(id);

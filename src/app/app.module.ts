@@ -10,7 +10,6 @@ import { CarouselModule } from 'ngx-owl-carousel-o';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 
-import { ExtrapagesModule } from './extrapages/extrapages.module';
 
 import { LayoutsModule } from './layouts/layouts.module';
 import { AppRoutingModule } from './app-routing.module';
@@ -46,7 +45,6 @@ export function createTranslateLoader(http: HttpClient): any {
     }),
     LayoutsModule,
     AppRoutingModule,
-    ExtrapagesModule,
     CarouselModule,
     NgbAccordionModule,
     NgbNavModule,

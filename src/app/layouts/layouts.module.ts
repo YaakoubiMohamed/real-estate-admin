@@ -6,7 +6,6 @@ import { SimplebarAngularModule } from 'simplebar-angular';
 import { NgbDropdownModule } from '@ng-bootstrap/ng-bootstrap';
 import { ClickOutsideModule } from 'ng-click-outside';
 
-import { UIModule } from '../shared/ui/ui.module';
 import { LayoutComponent } from './layout.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
 import { TopbarComponent } from './topbar/topbar.component';
@@ -27,9 +26,8 @@ import { TranslateModule } from '@ngx-translate/core';
     RouterModule,
     NgbDropdownModule,
     ClickOutsideModule,
-    UIModule,
     SimplebarAngularModule
   ],
-  providers: [LanguageService]
+  providers: [LanguageService],
 })
 export class LayoutsModule { }

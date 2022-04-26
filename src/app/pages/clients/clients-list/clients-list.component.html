@@ -25,8 +25,8 @@
                 <td>{{ client.telephone }}</td>
                 <td>{{ client.adresse }}</td>
                 <td>
-                  <a (click)="bloquer(client)" class="btn btn-warning">bloquer</a>
-                  <a (click)="delete(client)" class="btn btn-danger">supprimer</a>
+                  <a (click)="confirm('bloquer',client)" class="btn btn-warning">bloquer</a>
+                  <a (click)="confirm('supprimer',client)" class="btn btn-danger">supprimer</a>
                 </td>
               </tr>
             </tbody>

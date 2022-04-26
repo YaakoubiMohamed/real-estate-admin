@@ -17,7 +17,7 @@ import { SIDEBAR_TYPE } from "../layouts.model";
 export class VerticalComponent implements OnInit, AfterViewInit {
 
   isCondensed = false;
-  sidebartype: string;
+  sidebartype!: string;
 
   constructor(private router: Router, private eventService: EventService) {
     this.router.events.forEach((event) => {
@@ -56,7 +56,7 @@ export class VerticalComponent implements OnInit, AfterViewInit {
     document.body.classList.toggle('right-bar-enabled');
   }
 
-  changeSidebar(value) {
+  changeSidebar(value: string) {
     switch (value) {
       case "light":
         document.body.setAttribute('data-sidebar', 'light');

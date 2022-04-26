@@ -7,8 +7,8 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PagetitleComponent implements OnInit {
 
-  @Input() breadcrumbItems;
-  @Input() title: string;
+  @Input() breadcrumbItems!: Array<{}>;
+  @Input() title!: string;
 
   constructor() { }
 

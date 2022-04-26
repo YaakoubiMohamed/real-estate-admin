@@ -19,13 +19,13 @@ import Swal from 'sweetalert2';
  */
 export class PublicationsListComponent implements OnDestroy, OnInit {
   // bread crum data
-  breadCrumbItems: Array<{}>;
+  breadCrumbItems!: Array<{}>;
   // Publication data
   //publications: Publication[];
   public selected: any;
 
-  publications$: Observable<Publication[]>;
-  total$: Observable<number>;
+  publications$!: Observable<Publication[]>;
+  total$!: Observable<number>;
   editableTable: any;
 
   public isCollapsed = true;
@@ -69,16 +69,16 @@ export class PublicationsListComponent implements OnDestroy, OnInit {
     this.service.getPublications().subscribe((res: Publication[]) => {
       this.publications = res;
       this.dtTrigger.next();
-      console.log(this.publications[0].date.toDate());
+      console.log(this.publications[0].date!.toDate());
     });
     
   }
 
-  delete(id){
+  delete(id: string){
     this.service.deletePublication(id);
   }
 
-  confirm(id) {
+  confirm(id: string) {
     Swal.fire({
       title: 'Êtes-vous sûr?',
       text: 'Vous ne pourrez pas revenir en arrière!',
@@ -86,7 +86,8 @@ export class PublicationsListComponent implements OnDestroy, OnInit {
       showCancelButton: true,
       confirmButtonColor: '#34c38f',
       cancelButtonColor: '#f46a6a',
-      confirmButtonText: 'Oui!'
+      confirmButtonText: 'Oui!',
+      cancelButtonText: 'Annuler!'
     }).then(result => {
       if (result.value) {
         this.delete(id);

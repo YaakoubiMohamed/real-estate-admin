@@ -17,7 +17,7 @@ export class Recoverpwd2Component implements OnInit {
    // set the currenr year
    year: number = new Date().getFullYear();
 
-   resetForm: FormGroup;
+   resetForm!: FormGroup;
    submitted = false;
    error = '';
    success = '';

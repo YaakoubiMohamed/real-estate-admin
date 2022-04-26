@@ -8,4 +8,5 @@ export class User {
     adresse?:string;
     grade?:string;
     photo?:string;
+    etat?:string;
 }

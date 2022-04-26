@@ -19,7 +19,7 @@ export class LanguageService {
     translate.use(browserLang.match(/fr|en|es|de|it|ru/) ? browserLang : 'fr');
   }
 
-  public setLanguage(lang) {
+  public setLanguage(lang: string) {
     this.translate.use(lang);
     this.cookieService.set('lang', lang);
   }

@@ -17,15 +17,15 @@ import { userGridData } from './data';
  */
 export class UsergridComponent implements OnInit {
   // bread crumb items
-  breadCrumbItems: Array<{}>;
+  breadCrumbItems!: Array<{}>;
 
-  userGridData: Usergrid[];
-  selected;
-  userForm: FormGroup;
+  userGridData!: Usergrid[];
+  userForm!: FormGroup;
   submitted = false;
-  items: FormArray;
+  items!: FormArray;
   // Select2 Dropdown
-  selectValue: string[];
+  selectValue!: string[];
+  selected!: string[];
   constructor(private modalService: NgbModal, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
@@ -67,9 +67,9 @@ export class UsergridComponent implements OnInit {
    */
   saveUser() {
     if (this.userForm.valid) {
-      const name = this.userForm.get('name').value;
-      const email = this.userForm.get('email').value;
-      const designation = this.userForm.get('designation').value;
+      const name = this.userForm.value.name;
+      const email = this.userForm.value.email;
+      const designation = this.userForm.value.designation;
        this.userGridData.push({
          id: this.userGridData.length + 1,
          name,

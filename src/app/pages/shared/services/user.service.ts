@@ -12,7 +12,7 @@ import { User } from '../classes/user';
 export class UserService {
   
 
-  users: Observable<User[]>;
+  users!: Observable<User[]>;
 
 
   constructor(public afs:Firestore) { }
@@ -22,9 +22,9 @@ export class UserService {
     return addDoc(newuser, user);
   }
 
-  blockUser(id: any) {
+  blockUser(user:any, id: any) {
     const userDocRef = doc(this.afs, `users/${id}`);
-    return docData(userDocRef, { idField: 'id' }) as Observable<User>;
+    return setDoc(userDocRef, user);
   }
 
   getUsers(): Observable<User[]>{
@@ -32,8 +32,8 @@ export class UserService {
    return collectionData(users, { idField: 'id' }) as Observable<User[]>;
   }
 
-  deleteUser(user: User) {
-    const userDocRef = doc(this.afs, `users/${user.id}`);
+  deleteUser(id: string) {
+    const userDocRef = doc(this.afs, `users/${id}`);
     return deleteDoc(userDocRef);
   }
 
@@ -42,8 +42,8 @@ export class UserService {
     return docData(userDocRef, { idField: 'id' }) as Observable<User>;
   }
   
-  updateUser(user: User) {
-    const userDocRef = doc(this.afs, `users/${user.id}`);
+  updateUser(user: User, id: string) {
+    const userDocRef = doc(this.afs, `users/${id}`);
     return setDoc(userDocRef, user);
   }
 }

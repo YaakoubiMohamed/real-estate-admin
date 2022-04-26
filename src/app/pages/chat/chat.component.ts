@@ -15,28 +15,29 @@ import { chatData, chatMessagesData } from './data';
 })
 export class ChatComponent implements OnInit, AfterViewInit {
 
-  @ViewChild('scrollEle') scrollEle;
-  @ViewChild('scrollRef') scrollRef;
+  @ViewChild('scrollEle') scrollEle!: { SimpleBar: { getScrollElement: () => { (): any; new(): any; scrollTop: number; }; }; };
+  @ViewChild('scrollRef') scrollRef: { SimpleBar: { getScrollElement: () => { (): any; new(): any; scrollTop: number; scrollHeight: number; }; }; } | undefined;
 
   username = 'Steven Franklin';
 
   // bread crumb items
-  breadCrumbItems: Array<{}>;
+  breadCrumbItems!: Array<{}>;
 
-  chatData: ChatUser[];
-  chatMessagesData: ChatMessage[];
+  chatData!: ChatUser[];
+  chatMessagesData!: ChatMessage[];
 
-  formData: FormGroup;
+  formData!: FormGroup;
 
   // Form submit
-  chatSubmit: boolean;
+  chatSubmit!: boolean;
 
-  usermessage: string;
+  usermessage!: string;
   messages: Message[] = [];
-  user: User;
-  users: Message[];
+  user!: User;
+  users!: Message[];
   opened= false;
-  reponses: Message[];
+  reponses!: Message[];
+  date: Date | undefined;
 
 
   constructor(public formBuilder: FormBuilder,private messageservice: MessageService) {
@@ -53,47 +54,47 @@ export class ChatComponent implements OnInit, AfterViewInit {
 
     this._fetchData();
     this.getMessages();
-    this.user = JSON.parse(localStorage.getItem('userInfo'));
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
   }
 
   getMessages(){
     this.messageservice.getMessages().subscribe((res: Message[]) => {
       this.messages = res;
       this.messages = this.messages.filter(x =>{
-        return x.recepteur.email == this.user.email;
+        return x.recepteur!.email == this.user.email;
       })
       console.log(this.messages);
-      this.users = [...new Map(this.messages.map((item) => [item["email"], item])).values()];
+      this.users = [...new Map(this.messages.map((item) => [item["recepteur"], item])).values()];
       console.log(this.users);
     })
   }
-  getDiscussion(user){
+  getDiscussion(user: any){
     this.opened = true;
     this.messageservice.getMessages().subscribe((res: Message[]) => {
       console.log(res);
       this.reponses = res.filter(x =>{
-        return x.recepteur.email == this.user.email || x.emetteur.email == this.user.email;
+        return x.recepteur!.email == this.user.email || x.emetteur!.email == this.user.email;
       })
       this.reponses = this.reponses.sort(
-        (objA, objB) => objB.date.getTime() - objA.date.getTime(),
+        (objA, objB) => Date.parse(objB.date!) - Date.parse(objA.date!),
       );
       console.log(this.reponses);
       
     })
   }
   add(){
-    let message = {};
-    message['texte']="bonjour";
-    message['date'] = '18-03-2022';
-    message['emetteur'] = this.user;
-    message['recepteur'] = this.user;
+    let message = new Message();
+    message.texte="bonjour";
+    message.date = this.date?.toDateString();
+    message.emetteur = this.user;
+    message.recepteur = this.user;
     console.log(message);
     this.messageservice.addMessage(message);
   }
 
   ngAfterViewInit() {
     this.scrollEle.SimpleBar.getScrollElement().scrollTop = 100;
-    this.scrollRef.SimpleBar.getScrollElement().scrollTop = 200;
+    this.scrollRef!.SimpleBar.getScrollElement().scrollTop = 200;
   }
 
   /**
@@ -111,13 +112,13 @@ export class ChatComponent implements OnInit, AfterViewInit {
   onListScroll() {
     if (this.scrollRef !== undefined) {
       setTimeout(() => {
-        this.scrollRef.SimpleBar.getScrollElement().scrollTop =
-          this.scrollRef.SimpleBar.getScrollElement().scrollHeight + 1500;
+        this.scrollRef!.SimpleBar.getScrollElement().scrollTop =
+          this.scrollRef!.SimpleBar.getScrollElement().scrollHeight + 1500;
       }, 500);
     }
   }
 
-  chatUsername(name) {
+  chatUsername(name: string) {
     this.username = name;
     this.usermessage = 'Hello';
     this.chatMessagesData = [];
@@ -135,22 +136,17 @@ export class ChatComponent implements OnInit, AfterViewInit {
    * Save the message in chat
    */
   messageSave() {
-    const message = this.formData.get('message').value;
+    const message = this.formData.value;
     const currentDate = new Date();
-    if (this.formData.valid && message) {
+    if (this.formData.valid ) {
       // Message Push in Chat
-      this.chatMessagesData.push({
-        align: 'right',
-        name: 'Henry Wells',
-        message,
-        time: currentDate.getHours() + ':' + currentDate.getMinutes()
-      });
-      this.onListScroll();
-
-      // Set Form Data Reset
-      this.formData = this.formBuilder.group({
-        message: null
-      });
+      let message = new Message();
+    message.texte ="bonjour";
+    message.date = '18-03-2022';
+    message.emetteur = this.user;
+    message.recepteur = this.user;
+    console.log(message);
+    this.messageservice.addMessage(message);
     }
 
     this.chatSubmit = true;

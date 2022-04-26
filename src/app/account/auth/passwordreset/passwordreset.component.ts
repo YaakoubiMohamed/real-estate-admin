@@ -16,7 +16,7 @@ import { environment } from '../../../../environments/environment';
  */
 export class PasswordresetComponent implements OnInit, AfterViewInit {
 
-  resetForm: FormGroup;
+  resetForm!: FormGroup;
   submitted = false;
   error = '';
   success = '';

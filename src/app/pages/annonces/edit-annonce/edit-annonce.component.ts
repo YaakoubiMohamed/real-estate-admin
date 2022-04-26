@@ -6,6 +6,7 @@ import { finalize } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import { Annonce } from '../annonces-list/annonce.model';
 import Swal from 'sweetalert2';
+import villes from '../delegation.json';
 
 @Component({
   selector: 'app-edit-annonce',
@@ -14,20 +15,22 @@ import Swal from 'sweetalert2';
 })
 export class EditAnnonceComponent implements OnInit {
 
-  EditForm: FormGroup; // bootstrap validation form
+  EditForm!: FormGroup; // bootstrap validation form
   date = new Date();
   // bread crumb items
-  breadCrumbItems: Array<{}>;
+  breadCrumbItems!: Array<{}>;
 
   // Form submition
-  formsubmit: boolean;
+  formsubmit!: boolean;
   user: any;
   
   myFiles:string [] = [];
   private basePath = '/images';
-  annonce: Annonce;
+  annonce!: Annonce;
   id: any;
   valid = false;
+  public _countryList: { Gouvernorat: string; Delegations: string; Nbre: number; }[] = villes;
+  delegations:string[] = [];
 
   constructor(public formBuilder: FormBuilder,private annoceservice: AnnonceService,
     private router: Router,private storage: AngularFireStorage,
@@ -37,7 +40,7 @@ export class EditAnnonceComponent implements OnInit {
   async ngOnInit() {
 
     this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Form Validation', active: true }];
-    this.user = JSON.parse(localStorage.getItem('userInfo'));
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     this.actRoute.params.subscribe((params: Params) => this.id = params['id']);
     await this.getAnnonce(this.id);    
     
@@ -54,6 +57,9 @@ export class EditAnnonceComponent implements OnInit {
       type: [this.annonce.type, [Validators.required]],
       etage: [this.annonce.etage, [Validators.required]],
       adresse: [this.annonce.adresse, Validators.required],
+      ville: [this.annonce.ville, Validators.required],
+      delegation: [this.annonce.delegation, Validators.required],
+      cpostal: [this.annonce.cpostal, Validators.required],
       date: [this.annonce.date, Validators.required],
       available: [this.annonce.available, Validators.required],
       user: [this.annonce.user, Validators.required],
@@ -61,13 +67,23 @@ export class EditAnnonceComponent implements OnInit {
     });
     
   }
+
+  getDelegation(ville:string){
+    console.log(ville);
+    this.delegations = [];
+    let obj = this._countryList.find(data => data.Gouvernorat === ville);
+//    console.log(obj);
+    this.delegations = obj!.Delegations.split(',');
+    console.log(this.delegations);
+    
+  }
   
 
-  getAnnonce(id){
+  getAnnonce(id: string){
     this.annoceservice.getAnnonceByID(id).subscribe(data=>{
       this.annonce = data;
       console.log(data)
-      this.date = this.annonce.date.toDate();
+      this.date = this.annonce.date!.toDate();
       this.valid = true;
       this.getForm();      
     })
@@ -113,7 +129,7 @@ export class EditAnnonceComponent implements OnInit {
   }
 
 
-  upload(fileUpload) {
+  upload(fileUpload: { name: string; }) {
     const path = `/images/${fileUpload.name}`;
     console.log(path);
     const storageReference = this.storage.ref('/images/' + fileUpload.name);

@@ -5,7 +5,6 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 import { CarouselModule } from 'ngx-owl-carousel-o';
 
-import { UIModule } from '../../shared/ui/ui.module';
 import { LoginComponent } from './login/login.component';
 import { Recoverpwd2Component } from './recoverpwd2/recoverpwd2.component';
 
@@ -19,7 +18,6 @@ import { PasswordresetComponent } from './passwordreset/passwordreset.component'
     ReactiveFormsModule,
     FormsModule,
     NgbAlertModule,
-    UIModule,
     AuthRoutingModule,
     CarouselModule
   ]

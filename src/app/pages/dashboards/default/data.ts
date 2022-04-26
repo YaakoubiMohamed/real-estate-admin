@@ -64,7 +64,7 @@ const monthlyEarningChart: ChartType = {
                     offsetY: 22,
                     fontSize: '16px',
                     color: undefined,
-                    formatter: (val) => {
+                    formatter: (val: string) => {
                         return val + '%';
                     }
                 }

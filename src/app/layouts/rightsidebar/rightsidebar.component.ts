@@ -14,12 +14,12 @@ import { LAYOUT_WIDTH, SIDEBAR_TYPE, TOPBAR } from '../layouts.model';
  */
 export class RightsidebarComponent implements OnInit {
 
-  isVisible: string;
-  attribute: string;
+  isVisible!: string;
+  attribute!: string;
 
-  width: string;
-  sidebartype: string;
-  topbar: string;
+  width!: string;
+  sidebartype!: string;
+  topbar!: string;
 
   constructor(private eventService: EventService) { }
 
@@ -31,13 +31,13 @@ export class RightsidebarComponent implements OnInit {
     /**
      * horizontal-vertical layput set
      */
-    this.attribute = document.body.getAttribute('data-layout');
+    this.attribute = document.body.getAttribute('data-layout') || 'horizontal';
     const vertical = document.getElementById('is-layout');
     if (vertical != null) {
       vertical.setAttribute('checked', 'true');
     }
     if (this.attribute == 'horizontal') {
-      vertical.removeAttribute('checked');
+      vertical!.removeAttribute('checked');
     }
   }
 
@@ -60,7 +60,7 @@ export class RightsidebarComponent implements OnInit {
    * Change the layout onclick
    * @param layout Change the layout
    */
-  changeLayout(layout) {
+  changeLayout(layout: { target: { checked: boolean; }; }) {
     if (layout.target.checked == true)
       this.eventService.broadcast('changeLayout', 'vertical');
     else

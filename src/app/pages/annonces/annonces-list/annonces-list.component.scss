@@ -11,6 +11,14 @@
   body {
     background-color: #e4e5e6;
   }
+  .desc{    
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  max-width: 200px;
+  }
 
   html {
     position: relative;

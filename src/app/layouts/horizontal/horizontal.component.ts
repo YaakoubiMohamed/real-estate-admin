@@ -13,7 +13,7 @@ import { EventService } from '../../core/services/event.service';
  */
 export class HorizontalComponent implements OnInit, AfterViewInit {
 
-  topbar: string;
+  topbar!: string;
 
   constructor(private eventService: EventService) { }
 

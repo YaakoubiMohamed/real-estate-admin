@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BloggridComponent implements OnInit {
  // bread crumb items
- breadCrumbItems: Array<{}>;
+ breadCrumbItems!: Array<{}>;
 
   constructor() { }
 

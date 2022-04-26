@@ -25,7 +25,7 @@
                 <td>{{ agent.telephone }}</td>
                 <td>{{ agent.adresse }}</td>
                 <td>
-                  <a (click)="delete(agent)" class="btn btn-danger">Supprimer</a>
+                  <a (click)="confirm(agent.id)" class="btn btn-danger">Supprimer</a>
                 </td>
               </tr>
             </tbody>

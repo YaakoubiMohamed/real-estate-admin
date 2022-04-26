@@ -5,6 +5,6 @@ export class Message {
     id?:string;
     emetteur?:User;
     recepteur?:User;
-    date?:Date;
+    date?:string;
     texte?:string;
 }

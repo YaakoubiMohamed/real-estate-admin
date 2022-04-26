@@ -10,7 +10,7 @@ import { Message } from '../classes/message';
   providedIn: 'root'
 })
 export class MessageService {
-  messages: Observable<Message[]>;
+  messages!: Observable<Message[]>;
 
 
   constructor(public afs:Firestore) { }
@@ -24,6 +24,7 @@ export class MessageService {
     const messages = collection(this.afs, 'messages');
    return collectionData(messages, { idField: 'id' }) as Observable<Message[]>;
   }
+
 /*
   deleteMessage(id){
     this.afs.collection('messages').doc(id).delete();

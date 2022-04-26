@@ -13,14 +13,14 @@ import { ConfigService } from '../../../core/services/config.service';
 })
 export class DefaultComponent implements OnInit {
 
-  isVisible: string;
+  isVisible!: string;
 
-  emailSentBarChart: ChartType;
-  monthlyEarningChart: ChartType;
-  transactions: Array<[]>;
-  statData: Array<[]>;
+  emailSentBarChart!: ChartType;
+  monthlyEarningChart!: ChartType;
+  transactions!: Array<[]>;
+  statData!: Array<[]>;
 
-  isActive: string;
+  isActive!: string;
 
   constructor(private modalService: NgbModal, private configService: ConfigService, private eventService: EventService) {
   }
@@ -32,7 +32,7 @@ export class DefaultComponent implements OnInit {
      */
      const attribute = document.body.getAttribute('data-layout');
 
-     this.isVisible = attribute;
+     this.isVisible = attribute === 'horizontal' ? 'visible' : 'hidden';
      const vertical = document.getElementById('layout-vertical');
      if (vertical != null) {
        vertical.setAttribute('checked', 'true');

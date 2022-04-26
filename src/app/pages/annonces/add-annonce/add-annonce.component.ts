@@ -6,6 +6,7 @@ import { MustMatch } from './validation.mustmatch';
 import { finalize } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import Swal from 'sweetalert2';
+import villes from '../delegation.json';
 
 @Component({
   selector: 'app-add-annonce',
@@ -14,18 +15,21 @@ import Swal from 'sweetalert2';
 })
 export class AddAnnonceComponent implements OnInit {
 
-  AnnonceForm: FormGroup; // bootstrap validation form
+  AnnonceForm!: FormGroup; // bootstrap validation form
   date = new Date();
   // bread crumb items
-  breadCrumbItems: Array<{}>;
+  breadCrumbItems!: Array<{}>;
 
   // Form submition
-  formsubmit: boolean;
+  formsubmit!: boolean;
   user: any;
   
   myFiles:string [] = [];
   private basePath = '/images';
-  villes= ['Tunis','sfax','gabes'];
+  //villes= ['Tunis','sfax','gabes'];
+  public _countryList: { Gouvernorat: string; Delegations: string; Nbre: number; }[] = villes;
+  delegations:string[] = [];
+
 
   constructor(public formBuilder: FormBuilder,private annoceservice: AnnonceService,
     private router: Router,private storage: AngularFireStorage) { }
@@ -34,7 +38,7 @@ export class AddAnnonceComponent implements OnInit {
   ngOnInit() {
 
     this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Form Validation', active: true }];
-    this.user = JSON.parse(localStorage.getItem('userInfo'));
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
    
     /**
      * Type validation form
@@ -48,7 +52,7 @@ export class AddAnnonceComponent implements OnInit {
       type: ['', [Validators.required]],
       etage: ['', [Validators.required]],
       adresse: ['', Validators.required],
-      ville: [this.villes, Validators.required],
+      ville: ['', Validators.required],
       delegation: ['', Validators.required],
       cpostal: ['', Validators.required],
       date: [this.date],
@@ -65,6 +69,16 @@ export class AddAnnonceComponent implements OnInit {
    */
   get form() {
     return this.AnnonceForm.controls;
+  }
+
+  getDelegation(ville:string){
+    console.log(ville);
+    this.delegations = [];
+    let obj = this._countryList.find(data => data.Gouvernorat === ville);
+//    console.log(obj);
+    this.delegations = obj!.Delegations.split(',');
+    console.log(this.delegations);
+    
   }
 
  
@@ -100,7 +114,7 @@ export class AddAnnonceComponent implements OnInit {
   }
 
 
-  upload(fileUpload) {
+  upload(fileUpload: { name: string; }) {
     const path = `/images/${fileUpload.name}`;
     console.log(path);
     const storageReference = this.storage.ref('/images/' + fileUpload.name);

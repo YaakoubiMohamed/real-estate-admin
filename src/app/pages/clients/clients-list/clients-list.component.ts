@@ -4,6 +4,7 @@ import { DecimalPipe } from '@angular/common';
 import { Observable, Subject } from 'rxjs';
 import { UserService } from '../../shared/services/user.service';
 import { User } from '../../shared/classes/user';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -18,13 +19,13 @@ import { User } from '../../shared/classes/user';
  */
 export class ClientsListComponent implements OnDestroy, OnInit {
   // bread crum data
-  breadCrumbItems: Array<{}>;
+  breadCrumbItems!: Array<{}>;
   // User data
   //clients: User[];
   public selected: any;
   hideme: boolean[] = [];
-  clients$: Observable<User[]>;
-  total$: Observable<number>;
+  clients$!: Observable<User[]>;
+  total$!: Observable<number>;
   editableTable: any;
 
   public isCollapsed = true;
@@ -51,7 +52,7 @@ export class ClientsListComponent implements OnDestroy, OnInit {
     this._fetchData();
   }
 
-  changeValue(i) {
+  changeValue(i: number) {
     this.hideme[i] = !this.hideme[i];
   }
 
@@ -80,15 +81,43 @@ export class ClientsListComponent implements OnDestroy, OnInit {
     
   }
 
-  bloquer(client){
-    this.service.blockUser(client.id).subscribe(res=>{
+  bloquer(user: User){
+    let blockeduser:User = {}
+    blockeduser = user;
+    blockeduser['etat'] = 'bloquer'  ;
+    console.log(blockeduser);
+    this.service.blockUser(blockeduser,user.id).then(res=>{
       console.log(res);
     })
   }
 
-  delete(client){
-    this.service.deleteUser(client.id).then(res=>{
+  delete(user: any){
+    this.service.deleteUser(user.id).then(res=>{
       console.log(res);
     })
+  }
+
+  confirm(etat: string,user: User) {
+    Swal.fire({
+      title: 'Êtes-vous sûr?',
+      text: 'Vous ne pourrez pas revenir en arrière!',
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#34c38f',
+      cancelButtonColor: '#f46a6a',
+      confirmButtonText: 'Oui!',
+      cancelButtonText: 'Annuler!'
+    }).then(result => {
+      if (result.value) {
+        if(etat === 'bloquer'){
+          this.bloquer(user);
+          Swal.fire('Bloquer!', 'Client bloqué.', 'success');
+        }
+        else{
+        this.delete(user);
+        Swal.fire('supprimer!', 'Client supprimé.', 'success');
+        }
+      }
+    });
   }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, AfterViewInit, ElementRef, ViewChild, Input, OnChanges } from '@angular/core';
-import MetisMenu from 'metismenujs/dist/metismenujs';
+import MetisMenu from 'metismenujs';
 import { EventService } from '../../core/services/event.service';
 import { Router, NavigationEnd } from '@angular/router';
 
@@ -19,14 +19,14 @@ import { TranslateService } from '@ngx-translate/core';
  * Sidebar component
  */
 export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
-  @ViewChild('componentRef') scrollRef;
+  @ViewChild('componentRef') scrollRef!: { SimpleBar: { getScrollElement: () => { (): any; new(): any; scrollTop: number; }; } | null; };
   @Input() isCondensed = false;
   menu: any;
   data: any;
 
-  menuItems = [];
+  menuItems = MENU as MenuItem[];
 
-  @ViewChild('sideMenu') sideMenu: ElementRef;
+  @ViewChild('sideMenu') sideMenu: ElementRef | undefined;
 
   constructor(private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient) {
     router.events.forEach((event) => {
@@ -43,18 +43,18 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngAfterViewInit() {
-    this.menu = new MetisMenu(this.sideMenu.nativeElement);
+    this.menu = new MetisMenu(this.sideMenu!.nativeElement);
     this._activateMenuDropdown();
   }
 
-  toggleMenu(event) {
+  toggleMenu(event: { currentTarget: { nextElementSibling: { classList: { toggle: (arg0: string) => void; }; }; }; }) {
     event.currentTarget.nextElementSibling.classList.toggle('mm-show');
   }
 
   ngOnChanges() {
     if (!this.isCondensed && this.sideMenu || this.isCondensed) {
       setTimeout(() => {
-        this.menu = new MetisMenu(this.sideMenu.nativeElement);
+        this.menu = new MetisMenu(this.sideMenu!.nativeElement);
       });
     } else if (this.menu) {
       this.menu.dispose();
@@ -63,7 +63,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   _scrollElement() {
     setTimeout(() => {
       if (document.getElementsByClassName("mm-active").length > 0) {
-        const currentPosition = document.getElementsByClassName("mm-active")[0]['offsetTop'];
+        const currentPosition = document.getElementsByClassName("mm-active")[0].scrollTop;
         if (currentPosition > 500)
         if(this.scrollRef.SimpleBar !== null)
           this.scrollRef.SimpleBar.getScrollElement().scrollTop =
@@ -75,7 +75,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   /**
    * remove active and mm-active class
    */
-  _removeAllClass(className) {
+  _removeAllClass(className: string) {
     const els = document.getElementsByClassName(className);
     while (els[0]) {
       els[0].classList.remove(className);
@@ -93,7 +93,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
     // tslint:disable-next-line: prefer-for-of
     const paths = [];
     for (let i = 0; i < links.length; i++) {
-      paths.push(links[i]['pathname']);
+      paths.push(links[i].getAttribute('href'));
     }
     var itemIndex = paths.indexOf(window.location.pathname);
     if (itemIndex === -1) {
@@ -108,7 +108,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
       const parentEl = menuItemEl.parentElement;
       if (parentEl) {
         parentEl.classList.add('mm-active');
-        const parent2El = parentEl.parentElement.closest('ul');
+        const parent2El = parentEl.parentElement!.closest('ul') ;
         if (parent2El && parent2El.id !== 'side-menu') {
           parent2El.classList.add('mm-show');
           const parent3El = parent2El.parentElement;

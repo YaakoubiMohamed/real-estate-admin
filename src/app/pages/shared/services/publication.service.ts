@@ -11,7 +11,7 @@ import { Publication } from '../classes/publication';
 })
 export class PublicationService {
 
-  publications: Observable<Publication[]>;
+  publications!: Observable<Publication[]>;
 
 
   constructor(public afs:Firestore) { }
@@ -26,8 +26,8 @@ export class PublicationService {
    return collectionData(publications, { idField: 'id' }) as Observable<Publication[]>;
   }
 
-  deletePublication(publication: Publication) {
-    const publicationDocRef = doc(this.afs, `publications/${publication.id}`);
+  deletePublication(id: string) {
+    const publicationDocRef = doc(this.afs, `publications/${id}`);
     return deleteDoc(publicationDocRef);
   }
 
@@ -36,8 +36,8 @@ export class PublicationService {
     return docData(publicationDocRef, { idField: 'id' }) as Observable<Publication>;
   }
   
-  updatePublication(publication: Publication) {
-    const publicationDocRef = doc(this.afs, `publications/${publication.id}`);
+  updatePublication(publication: Publication,id: string) {
+    const publicationDocRef = doc(this.afs, `publications/${id}`);
     return setDoc(publicationDocRef, publication);
   }
   

@@ -8,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 export class DetailComponent implements OnInit {
 
  // bread crumb items
- breadCrumbItems: Array<{}>;
+ breadCrumbItems!: Array<{}>;
 
   constructor() { }
 

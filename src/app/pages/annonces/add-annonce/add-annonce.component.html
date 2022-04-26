@@ -85,9 +85,11 @@
               <div class="mb-3">
                 <label class="form-label">ville</label>
                 <div>
-                  <select  formControlName="ville" type="text" class="form-control"
+                  <select title="ville"  formControlName="ville" type="text" class="form-control" (change)="getDelegation($event.target.value)"
                   [ngClass]="{'is-invalid': formsubmit && form.ville.errors}" placeholder="ville">
-                  <option value="{{ville}}" *ngFor="let ville of villes">{{ville}}</option>
+                  <option value="{{ville.Gouvernorat}}" *ngFor="let ville of _countryList" >
+                    {{ville.Gouvernorat}}
+                  </option>
                 </select>
                   
                   <div *ngIf="formsubmit && form.ville.errors" class="invalid-feedback">
@@ -98,9 +100,9 @@
               <div class="mb-3">
                 <label class="form-label">delegation</label>
                 <div>
-                  <select  formControlName="delegation" type="text" class="form-control"
+                  <select title="delegation"  formControlName="delegation" type="text" class="form-control"
                   [ngClass]="{'is-invalid': formsubmit && form.delegation.errors}" placeholder="delegation">
-                  <option value="{{ville}}" *ngFor="let ville of villes">{{ville}}</option>
+                  <option value="{{ville.Gouvernorat}}" *ngFor="let ville of delegations">{{ville}}</option>
                 </select>
                   <div *ngIf="formsubmit && form.delegation.errors" class="invalid-feedback">
                     <span *ngIf="form.delegation.errors.required">This value is required.</span>
@@ -120,7 +122,7 @@
               <div class="mb-3">
                 <label class="form-label">description</label>
                 <div>
-                  <textarea formControlName="description" class="form-control" rows="5"
+                  <textarea title="description" formControlName="description" class="form-control" rows="5"
                     [ngClass]="{'is-invalid': formsubmit && form.description.errors}"></textarea>
                   <div *ngIf="formsubmit && form.description.errors" class="invalid-feedback">
                     <span *ngIf="form.description.errors.required">This value is required.</span>
@@ -130,7 +132,7 @@
               <div class="mb-3">
                 <label class="form-label">photo</label>
                 <div>
-                    <input class="form-control" name="file" type="file" multiple (change)="onFileChange($event)" />
+                    <input title="file" class="form-control" name="file" type="file" multiple (change)="onFileChange($event)" />
                 </div>
               </div>
               <div class="d-flex flex-wrap gap-2">

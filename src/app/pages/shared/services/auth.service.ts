@@ -35,7 +35,7 @@ export class AuthService {
 
 
   // Sign in with email/password
-  SignIn(user) {
+  SignIn(user: { email: string; password: string; }) {
     return this.afAuth
       .signInWithEmailAndPassword(user.email, user.password)
       .then((result) => {

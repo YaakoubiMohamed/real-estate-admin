@@ -2,7 +2,6 @@ import { Component, OnInit, Output, EventEmitter, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { DOCUMENT } from '@angular/common';
 import { AuthenticationService } from '../../core/services/auth.service';
-import { AuthfakeauthenticationService } from '../../core/services/authfake.service';
 import { environment } from '../../../environments/environment';
 import { CookieService } from 'ngx-cookie-service';
 import { LanguageService } from '../../core/services/language.service';
@@ -19,15 +18,14 @@ import { TranslateService } from '@ngx-translate/core';
  */
 export class TopbarComponent implements OnInit {
 
-  element;
-  cookieValue;
-  flagvalue;
-  countryName;
-  valueset;
+  element!: HTMLElement;
+  cookieValue!: string;
+  flagvalue: string | string[] | undefined;
+  countryName!: string | string[];
+  valueset!: string;
   user: any;
 
-  constructor(@Inject(DOCUMENT) private document: any, private router: Router, private authService: AuthenticationService,
-              private authFackservice: AuthfakeauthenticationService,
+  constructor(@Inject(DOCUMENT) private document: any, private router: Router, private authService: AuthenticationService,              
               public languageService: LanguageService,
               public translate: TranslateService,
               public _cookiesService: CookieService) {
@@ -42,13 +40,13 @@ export class TopbarComponent implements OnInit {
     { text: 'Russian', flag: 'assets/images/flags/russia.jpg', lang: 'ru' },
   ];
 
-  openMobileMenu: boolean;
+  openMobileMenu: boolean = false;
 
   @Output() settingsButtonClicked = new EventEmitter();
   @Output() mobileMenuButtonClicked = new EventEmitter();
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('userInfo'));
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     this.openMobileMenu = false;
     this.element = document.documentElement;
 
@@ -97,36 +95,5 @@ export class TopbarComponent implements OnInit {
   /**
    * Fullscreen method
    */
-  fullscreen() {
-    document.body.classList.toggle('fullscreen-enable');
-    if (
-      !document.fullscreenElement && !this.element.mozFullScreenElement &&
-      !this.element.webkitFullscreenElement) {
-      if (this.element.requestFullscreen) {
-        this.element.requestFullscreen();
-      } else if (this.element.mozRequestFullScreen) {
-        /* Firefox */
-        this.element.mozRequestFullScreen();
-      } else if (this.element.webkitRequestFullscreen) {
-        /* Chrome, Safari and Opera */
-        this.element.webkitRequestFullscreen();
-      } else if (this.element.msRequestFullscreen) {
-        /* IE/Edge */
-        this.element.msRequestFullscreen();
-      }
-    } else {
-      if (this.document.exitFullscreen) {
-        this.document.exitFullscreen();
-      } else if (this.document.mozCancelFullScreen) {
-        /* Firefox */
-        this.document.mozCancelFullScreen();
-      } else if (this.document.webkitExitFullscreen) {
-        /* Chrome, Safari and Opera */
-        this.document.webkitExitFullscreen();
-      } else if (this.document.msExitFullscreen) {
-        /* IE/Edge */
-        this.document.msExitFullscreen();
-      }
-    }
-  }
+  
 }

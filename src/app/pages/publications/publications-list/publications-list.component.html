@@ -25,8 +25,8 @@
                 <td><img class="img" src="{{ publication.photo }}" alt="{{ publication.titre }}"></td>
                 <td>{{ publication.date.toDate() | date:'short'}}</td>
                 <td>
-                  <a href="publications/edit-publication/{{ publication.id }}" class="btn btn-success">Modifier</a>
-                  <a (click)="confirm(publication.id)" class="btn btn-danger">Supprimer</a>
+                  <a href="publications/edit-publication/{{ publication.id }}" class="btn btn-success"><i class="fa fa-edit"></i></a>
+                  <a (click)="confirm(publication.id)" class="btn btn-danger"><i class="fa fa-trash"></i></a>
                 </td>
               </tr>
             </tbody>

@@ -13,6 +13,9 @@ export interface Annonce {
     etage?:number;
     adresse?:string;
     date?:Timestamp;
+    delegation?:string;
+    ville?:string;
+    cpostal?:string;
     available?:Boolean;
     user?:User;
     photo?:String;

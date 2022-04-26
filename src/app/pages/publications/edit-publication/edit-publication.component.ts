@@ -14,20 +14,22 @@ import { Publication } from '../../shared/classes/publication';
 })
 export class EditPublicationComponent implements OnInit {
 
-  PublicationForm: FormGroup; // bootstrap validation form
+  PublicationForm!: FormGroup; // bootstrap validation form
   date = new Date();
   // bread crumb items
-  breadCrumbItems: Array<{}>;
+  breadCrumbItems!: Array<{}>;
 
   // Form submition
-  formsubmit: boolean;
+  formsubmit!: boolean;
   user: any;
   
   myFiles:string [] = [];
   private basePath = '/images';
   id: any;
-  valid: boolean;
-  publication: Publication;
+  valid!: boolean;
+  publication!: Publication;
+  photo: string[] | undefined;
+  newphoto: boolean = false;
 
   constructor(private actRoute: ActivatedRoute, public formBuilder: FormBuilder,private publicationservice: PublicationService,
     private router: Router,private storage: AngularFireStorage) { }
@@ -36,7 +38,7 @@ export class EditPublicationComponent implements OnInit {
   async ngOnInit() {
 
     this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Form Validation', active: true }];
-    this.user = JSON.parse(localStorage.getItem('userInfo'));
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     this.actRoute.params.subscribe((params: Params) => this.id = params['id']);
     await this.getAnnonce(this.id);  
     /**
@@ -45,8 +47,8 @@ export class EditPublicationComponent implements OnInit {
     this.PublicationForm = this.formBuilder.group({
       titre: ['', [Validators.required]],
       texte: ['', [Validators.required]],
-      date: [this.date, Validators.required],
-      user: [this.user, Validators.required],
+      date: ['', Validators.required],
+      user: ['', Validators.required],
       photo: [''],
     });
 
@@ -65,11 +67,12 @@ export class EditPublicationComponent implements OnInit {
   }
   
 
-  getAnnonce(id){
+  getAnnonce(id: string){
     this.publicationservice.getPublicationByID(id).subscribe(data=>{
       this.publication = data;
       console.log(data)
-      this.date = this.publication.date.toDate();
+      this.date = this.publication.date!.toDate();
+      this.photo = this.publication.photo;
       this.valid = true;
       this.getForm();      
     })
@@ -96,8 +99,13 @@ export class EditPublicationComponent implements OnInit {
     }
     else{
       console.log(this.PublicationForm.value);
+      if(this.newphoto){
       this.PublicationForm.controls['photo'].setValue(this.myFiles);
-      this.publicationservice.addPublication(this.PublicationForm.value);
+      }
+      else{
+        this.PublicationForm.controls['photo'].setValue(this.photo);
+      }
+      this.publicationservice.updatePublication(this.PublicationForm.value,this.id);
       this.position();
       this.router.navigate(['publications']);
     }
@@ -115,7 +123,7 @@ export class EditPublicationComponent implements OnInit {
   }
 
 
-  upload(fileUpload) {
+  upload(fileUpload: { name: string; }) {
     const path = `/images/${fileUpload.name}`;
     console.log(path);
     const storageReference = this.storage.ref('/images/' + fileUpload.name);
@@ -129,6 +137,7 @@ export class EditPublicationComponent implements OnInit {
           //fileUpload.name = fileUpload.file.name;
           console.log(downloadURL);
           this.myFiles.push(downloadURL);
+          this.newphoto = true;
         });
       })
     ).subscribe();

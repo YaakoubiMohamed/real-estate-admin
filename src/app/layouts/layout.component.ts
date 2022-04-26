@@ -15,9 +15,9 @@ import {
 export class LayoutComponent implements OnInit, AfterViewInit {
 
   // layout related config
-  layoutType: string;
-  layoutwidth: string;
-  topbar: string;
+  layoutType!: string;
+  layoutwidth!: string;
+  topbar!: string;
 
   constructor(private eventService: EventService) { }
 

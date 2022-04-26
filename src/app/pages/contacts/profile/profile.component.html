@@ -22,28 +22,16 @@
           <div class="row">
             <div class="col-sm-4">
               <div class="avatar-md profile-user-wid mb-4">
-                <img src="assets/images/users/avatar-1.jpg" alt="" class="img-thumbnail rounded-circle">
+                <img src="{{user.photo}}" alt="" class="img-thumbnail rounded-circle">
               </div>
-              <h5 class="font-size-15 text-truncate">{{user.nom}} {{user.prenom}}</h5>
+              <h5 class="font-size-15 ">{{user.nom}} {{user.prenom}}</h5>
               <p class="text-muted mb-0 text-truncate">{{user.grade}}</p>
             </div>
 
             <div class="col-sm-8">
               <div class="pt-4">
 
-                <div class="row">
-                  <div class="col-6">
-                    <h5 class="font-size-15">125</h5>
-                    <p class="text-muted mb-0">Projects</p>
-                  </div>
-                  <div class="col-6">
-                    <h5 class="font-size-15">$1245</h5>
-                    <p class="text-muted mb-0">Revenue</p>
-                  </div>
-                </div>
                 <div class="mt-4">
-                  <a href="javascript: void(0);" class="btn btn-primary btn-sm">View Profile <i
-                      class="mdi mdi-arrow-right ms-1"></i></a>
                 </div>
               </div>
             </div>
@@ -56,26 +44,24 @@
         <div class="card-body">
           <h4 class="card-title mb-4">Personal Information</h4>
 
-          <p class="text-muted mb-4">Hi I'm Cynthia Price,has been the industry's standard dummy text To an English
-            person, it will seem like simplified English, as a skeptical Cambridge.</p>
           <div class="table-responsive">
             <table class="table table-nowrap mb-0">
               <tbody>
                 <tr>
-                  <th scope="row">Full Name :</th>
-                  <td>Cynthia Price</td>
+                  <th scope="row">Nom & Prénom :</th>
+                  <td>{{user.nom}} {{user.prenom}}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Mobile :</th>
-                  <td>(123) 123 1234</td>
+                  <th scope="row">Téléphone :</th>
+                  <td>(216) {{user.telephone}}</td>
                 </tr>
                 <tr>
                   <th scope="row">E-mail :</th>
-                  <td>cynthiaskote@gmail.com</td>
+                  <td>{{user.email}}</td>
                 </tr>
                 <tr>
-                  <th scope="row">Location :</th>
-                  <td>California, United States</td>
+                  <th scope="row">Adresse :</th>
+                  <td>{{user.adresse}}</td>
                 </tr>
               </tbody>
             </table>
@@ -92,14 +78,59 @@
 
       <div class="row">
         <div *ngFor="let stat of statData" class="col-md-4">
-          <app-stat [title]="stat.title" [value]="stat.value" [icon]="stat.icon"></app-stat>
         </div>
 
       </div>
       <div class="card">
         <div class="card-body">
           <h4 class="card-title mb-4">Revenue</h4>
-          
+          <form  [formGroup]="registerForm" (ngSubmit)="register()">
+            <div class="form-group">
+                <label class="form-label">photo</label>
+                <div>
+                    <input class="form-control" name="file" type="file" multiple (change)="onFileChange($event)" />
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" formControlName="nom" class="form-control" id="nom" placeholder="nom"
+                    [ngClass]="{ 'is-invalid': submitted && f.nom.errors }" />
+                <div *ngIf="submitted && f.nom.errors" class="invalid-feedback">
+                    <div *ngIf="f.nom.errors.required">nom is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" formControlName="prenom" class="form-control" id="prenom" placeholder="prenom"
+                    [ngClass]="{ 'is-invalid': submitted && f.nom.errors }" />
+                <div *ngIf="submitted && f.prenom.errors" class="invalid-feedback">
+                    <div *ngIf="f.prenom.errors.required">prenom is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="email" formControlName="email" class="form-control" id="email" placeholder="Email"
+                    [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+                <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                    <div *ngIf="f.email.errors.required">Email is required</div>
+                    <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" formControlName="telephone" class="form-control" id="telephone" placeholder="telephone"
+                    [ngClass]="{ 'is-invalid': submitted && f.telephone.errors }" />
+                <div *ngIf="submitted && f.telephone.errors" class="invalid-feedback">
+                    <div *ngIf="f.telephone.errors.required">telephone is required</div>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="text" formControlName="adresse" class="form-control" id="adresse" placeholder="adresse"
+                    [ngClass]="{ 'is-invalid': submitted && f.adresse.errors }" />
+                <div *ngIf="submitted && f.adresse.errors" class="invalid-feedback">
+                    <div *ngIf="f.adresse.errors.required">adresse is required</div>
+                </div>
+            </div>
+            <div class="form-group mb-0">
+                <button type="submit" class="btn-md btn-theme btn-block">Register</button>
+            </div>
+        </form>
         </div>
       </div>
 

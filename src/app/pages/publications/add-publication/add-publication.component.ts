@@ -5,7 +5,6 @@ import { PublicationService } from '../../shared/services/publication.service';
 import { finalize } from 'rxjs/operators';
 import { AngularFireStorage } from '@angular/fire/compat/storage';
 import Swal from 'sweetalert2';
-import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 
 @Component({
   selector: 'app-add-publication',
@@ -14,15 +13,14 @@ import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
 })
 export class AddPublicationComponent implements OnInit {
 
-  PublicationForm: FormGroup; // bootstrap validation form
+  PublicationForm!: FormGroup; // bootstrap validation form
   date = new Date();
   // bread crumb items
-  breadCrumbItems: Array<{}>;
-  public Editor = ClassicEditor;
+  breadCrumbItems!: Array<{}>;
 
 
   // Form submition
-  formsubmit: boolean;
+  formsubmit!: boolean;
   user: any;
   
   myFiles:string [] = [];
@@ -35,7 +33,7 @@ export class AddPublicationComponent implements OnInit {
   ngOnInit() {
 
     this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Form Validation', active: true }];
-    this.user = JSON.parse(localStorage.getItem('userInfo'));
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
    
     /**
      * Type validation form
@@ -91,7 +89,7 @@ export class AddPublicationComponent implements OnInit {
   }
 
 
-  upload(fileUpload) {
+  upload(fileUpload: { name: string; }) {
     const path = `/images/${fileUpload.name}`;
     console.log(path);
     const storageReference = this.storage.ref('/images/' + fileUpload.name);
