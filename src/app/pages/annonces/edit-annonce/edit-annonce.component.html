@@ -102,7 +102,7 @@
               <div>
                 <select title="delegation"  formControlName="delegation" type="text" class="form-control"
                 [ngClass]="{'is-invalid': formsubmit && form.delegation.errors}" placeholder="delegation">
-                <option value="{{ville.Gouvernorat}}" *ngFor="let ville of delegations">{{ville}}</option>
+                <option [value]="ville" *ngFor="let ville of delegations">{{ville}}</option>
               </select>
                 <div *ngIf="formsubmit && form.delegation.errors" class="invalid-feedback">
                   <span *ngIf="form.delegation.errors.required">This value is required.</span>

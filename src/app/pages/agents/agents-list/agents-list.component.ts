@@ -82,7 +82,7 @@ export class AgentsListComponent implements OnDestroy, OnInit {
     }).then(result => {
       if (result.value) {
         this.delete(id);
-        Swal.fire('supprimer!', 'annonce supprimé.', 'success');
+        Swal.fire('supprimer!', 'Agent supprimé.', 'success');
       }
     });
   }

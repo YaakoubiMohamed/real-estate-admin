@@ -43,26 +43,26 @@ export class EditAnnonceComponent implements OnInit {
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     this.actRoute.params.subscribe((params: Params) => this.id = params['id']);
     await this.getAnnonce(this.id);    
-    
+    this.getForm(); 
     this.formsubmit = false;
   }
 
   getForm(){    
     this.EditForm = this.formBuilder.group({
-      titre: [this.annonce.titre, [Validators.required]],
-      prix: [this.annonce.prix, [Validators.required]],
-      surface: [this.annonce.surface, [Validators.required]],
-      nbr_piece: [this.annonce.nbr_piece, [Validators.required, Validators.pattern('[0-9]+')]],
-      description: [this.annonce.description, [Validators.required]],
-      type: [this.annonce.type, [Validators.required]],
-      etage: [this.annonce.etage, [Validators.required]],
-      adresse: [this.annonce.adresse, Validators.required],
-      ville: [this.annonce.ville, Validators.required],
-      delegation: [this.annonce.delegation, Validators.required],
-      cpostal: [this.annonce.cpostal, Validators.required],
-      date: [this.annonce.date, Validators.required],
-      available: [this.annonce.available, Validators.required],
-      user: [this.annonce.user, Validators.required],
+      titre: ['', [Validators.required]],
+      prix: ['', [Validators.required]],
+      surface: ['', [Validators.required]],
+      nbr_piece: ['', [Validators.required, Validators.pattern('[0-9]+')]],
+      description: ['', [Validators.required]],
+      type: ['', [Validators.required]],
+      etage: ['', [Validators.required]],
+      adresse: ['', Validators.required],
+      ville: ['', Validators.required],
+      delegation: ['', Validators.required],
+      cpostal: ['', Validators.required],
+      date: ['', Validators.required],
+      available: ['', Validators.required],
+      user: ['', Validators.required],
       photo: [''],
     });
     
@@ -85,7 +85,12 @@ export class EditAnnonceComponent implements OnInit {
       console.log(data)
       this.date = this.annonce.date!.toDate();
       this.valid = true;
-      this.getForm();      
+        
+      this.EditForm.patchValue(this.annonce);
+      this.EditForm.patchValue({
+        ville: this.annonce.ville,
+        delegation: this.annonce.delegation,
+      });
     })
   }
 
@@ -107,14 +112,14 @@ export class EditAnnonceComponent implements OnInit {
     if (this.EditForm.invalid) {
       console.log(this.EditForm.value);
       return;
-  }
-  else{
-    console.log(this.EditForm.value);
-    this.EditForm.controls['photo'].setValue(this.myFiles);
-    this.annoceservice.updateAnnonce(this.EditForm.value,this.id);
-    this.position;
-    this.router.navigate(['annonces']);
-  }
+    }
+    else{
+      console.log(this.EditForm.value);
+      this.EditForm.controls['photo'].setValue(this.myFiles);
+      this.annoceservice.updateAnnonce(this.EditForm.value,this.id);
+      this.position;
+      this.router.navigate(['annonces']);
+    }
     
   }
 
