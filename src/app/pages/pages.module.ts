@@ -19,6 +19,9 @@ import { ContactsModule } from './contacts/contacts.module';
 import { BlogModule } from "./blog/blog.module";
 import { ChatComponent } from './chat/chat.component';
 import { UIModule } from '../shared/ui/ui.module';
+import { ReservationComponent } from './reservation/reservation.component';
+import { ClientagentComponent } from './clientagent/clientagent.component';
+import { DataTablesModule } from 'angular-datatables';
 
 
 FullCalendarModule.registerPlugins([ // register FullCalendar plugins
@@ -28,7 +31,7 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
 ]);
 
 @NgModule({
-  declarations: [ ChatComponent],
+  declarations: [ ChatComponent, ReservationComponent, ClientagentComponent],
   imports: [
     CommonModule,
     FormsModule,
@@ -46,7 +49,8 @@ FullCalendarModule.registerPlugins([ // register FullCalendar plugins
     NgbCollapseModule,
     SimplebarAngularModule,
     LightboxModule,
-    UIModule
+    UIModule,
+    DataTablesModule,
   ],
 })
 export class PagesModule { }

@@ -87,6 +87,9 @@
     "IMMOBILIERS": {
       "TEXT": "Immobiliers"
     },
+    "RESERVATION": {
+      "TEXT": "Réseravtions"
+    },
     "AGENTS": {
       "TEXT": "Agents immobiliers"
     },

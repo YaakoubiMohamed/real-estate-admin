@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 import { MENU } from './menu';
 import { MenuItem } from './menu.model';
 import { TranslateService } from '@ngx-translate/core';
+import { MENUAGENT } from './menuagent';
 
 @Component({
   selector: 'app-sidebar',
@@ -27,6 +28,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   menuItems = MENU as MenuItem[];
 
   @ViewChild('sideMenu') sideMenu: ElementRef | undefined;
+  user: any;
 
   constructor(private eventService: EventService, private router: Router, public translate: TranslateService, private http: HttpClient) {
     router.events.forEach((event) => {
@@ -38,6 +40,7 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
   }
 
   ngOnInit() {
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     this.initialize();
     this._scrollElement();
   }
@@ -139,7 +142,12 @@ export class SidebarComponent implements OnInit, AfterViewInit, OnChanges {
    * Initialize
    */
   initialize(): void {
+    if(this.user.grade == 'admin'){
     this.menuItems = MENU;
+    }
+    else{
+      this.menuItems = MENUAGENT;
+    }
   }
 
   /**
