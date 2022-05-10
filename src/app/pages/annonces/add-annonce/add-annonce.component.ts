@@ -37,7 +37,7 @@ export class AddAnnonceComponent implements OnInit {
 
   ngOnInit() {
 
-    this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Form Validation', active: true }];
+    this.breadCrumbItems = [{ label: 'Annonce' }, { label: 'Ajouter annonce', active: true }];
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
    
     /**
