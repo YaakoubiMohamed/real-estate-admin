@@ -33,6 +33,7 @@ export class ClientagentComponent implements OnInit {
   // We use this trigger because fetching the list of persons can be quite long,
   // thus we ensure the data is fetched before rendering
   dtTrigger: Subject<any> = new Subject<any>();
+  user: any;
 
   constructor(public service: ReservationService) {
     
@@ -57,6 +58,8 @@ export class ClientagentComponent implements OnInit {
       pagingType: 'full_numbers',
       pageLength: 10
     };
+    this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
+    console.log(this.user);
 
     this.breadCrumbItems = [{ label: 'Accueil' }, { label: 'liste des clients', active: true }];
     /**
@@ -82,11 +85,12 @@ export class ClientagentComponent implements OnInit {
   _fetchData() {
     this.service.getReservations().subscribe((res: Reservation[]) => {
       this.clients = res;
+      this.clients = this.clients.filter(x=>{
+        return x.annonce.user?.id == this.user.id;
+      })
       this.dtTrigger.next();
-      console.log(this.clients.length);
-      for (let i = 0; i <= this.clients.length; i++) {
-        this.hideme.push(true);
-      }
+      console.log(this.clients);
+      
     });
     
   }

@@ -84,7 +84,7 @@ export class ReservationComponent implements OnInit {
     this.service.getReservations().subscribe((res: Reservation[]) => {
       this.reservations = res;
       this.dtTrigger.next();
-      console.log(this.reservations.length);
+      console.log(this.reservations);
       for (let i = 0; i <= this.reservations.length; i++) {
         this.hideme.push(true);
       }

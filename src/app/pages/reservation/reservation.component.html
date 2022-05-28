@@ -21,11 +21,11 @@
               <tbody>
                 <tr *ngFor="let reservation of reservations">                
                   <td>{{ reservation.user.nom }} {{ reservation.user.prenom }}</td>
-                  <td>{{ reservation.titre }}</td>
-                  <td>{{ reservation.prix }} DT</td>
-                  <td>{{ reservation.surface }} m²</td>
-                  <td><p class="desc">{{ reservation.description }}</p></td>
-                  <td>{{ reservation.type }}</td>
+                  <td>{{ reservation.annonce.titre }}</td>
+                  <td>{{ reservation.annonce.prix }} DT</td>
+                  <td>{{ reservation.annonce.surface }} m²</td>
+                  <td><p class="desc">{{ reservation.annonce.description }}</p></td>
+                  <td>{{ reservation.annonce.type }}</td>
                   <td>
                     <a (click)="accepter(reservation.id)" class="btn btn-success"><i class="fa fa-solid fa-check"></i></a>
                     <a (click)="confirm(reservation.id)" class="btn btn-danger"><i class="fa fa-trash"></i></a>

@@ -54,6 +54,7 @@ export class Recoverpwd2Component implements OnInit {
       this.authenticationService.changePassword(this.code,this.f.password.value)
       .then((result) => {
         console.log(result);
+        this.router.navigate(['/login']);
       })
         .catch(error => {
           this.error = error ? error : '';

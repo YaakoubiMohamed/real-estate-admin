@@ -46,7 +46,7 @@ export class PublicationsListComponent implements OnDestroy, OnInit {
       pageLength: 10
     };
 
-    this.breadCrumbItems = [{ label: 'Tables' }, { label: 'Advanced Publication', active: true }];
+    this.breadCrumbItems = [{ label: 'Accueil' }, { label: 'Liste publications', active: true }];
     /**
      * fetch data
      */

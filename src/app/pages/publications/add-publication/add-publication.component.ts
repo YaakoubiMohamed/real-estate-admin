@@ -32,7 +32,7 @@ export class AddPublicationComponent implements OnInit {
 
   ngOnInit() {
 
-    this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Form Validation', active: true }];
+    this.breadCrumbItems = [{ label: 'Publication' }, { label: 'Ajouter publication', active: true }];
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
    
     /**

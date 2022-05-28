@@ -39,7 +39,7 @@ export class EditAnnonceComponent implements OnInit {
 
   async ngOnInit() {
 
-    this.breadCrumbItems = [{ label: 'Forms' }, { label: 'Form Validation', active: true }];
+    this.breadCrumbItems = [{ label: 'Annonce' }, { label: 'Modifier annonce', active: true }];
     this.user = JSON.parse(localStorage.getItem('userInfo') || '{}');
     this.actRoute.params.subscribe((params: Params) => this.id = params['id']);
     await this.getAnnonce(this.id);    

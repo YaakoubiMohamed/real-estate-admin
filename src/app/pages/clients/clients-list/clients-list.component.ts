@@ -73,23 +73,26 @@ export class ClientsListComponent implements OnDestroy, OnInit {
         return x.grade === 'client';
       })
       this.dtTrigger.next();
-      console.log(this.clients.length);
+      console.log(this.clients);
+      /*
       for (let i = 0; i <= this.clients.length; i++) {
         this.hideme.push(true);
       }
+      */
     });
     
   }
 
   bloquer(user: User){
     let blockeduser:User = {}
-    blockeduser = user;
+    blockeduser = user; // affection
     blockeduser['etat'] = 'bloquer'  ;
     console.log(blockeduser);
     this.service.blockUser(blockeduser,user.id).then(res=>{
       console.log(res);
     })
   }
+
 
   delete(user: any){
     this.service.deleteUser(user.id).then(res=>{

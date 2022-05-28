@@ -1,0 +1,122 @@
+<app-loader></app-loader>
+<div class="container-fluid">
+  <!-- start page title -->
+  <div class="row">
+    <div class="col-12">
+      <div
+        class="page-title-box d-flex align-items-center justify-content-between"
+      >
+        <h4 class="mb-0 font-size-18">Accueil</h4>
+        <div class="page-title-right">
+          <ol class="breadcrumb m-0">
+            <li class="breadcrumb-item active">Accueil</li>
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end page title -->
+
+  <div class="row">
+    <div class="col-sm-3">
+      <div class="card mini-stats-wid">
+        <div class="card-body">
+          <div class="media">
+            <div class="me-3 align-self-center">
+              <i class="fas fa-users h2 text-warning mb-0"></i>
+            </div>
+            <div class="media-body">
+              <p class="text-muted mb-2">Clients</p>
+              <h5 class="mb-0">
+                {{ clientslength }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card mini-stats-wid">
+        <div class="card-body">
+          <div class="media">
+            <div class="me-3 align-self-center">
+              <i class="fas fa-users h2 text-primary mb-0"></i>
+            </div>
+            <div class="media-body">
+              <p class="text-muted mb-2">Agents</p>
+              <h5 class="mb-0">
+                {{ agentslength }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card mini-stats-wid">
+        <div class="card-body">
+          <div class="media">
+            <div class="me-3 align-self-center">
+              <i class="fas fa-home h2 text-info mb-0"></i>
+            </div>
+            <div class="media-body">
+              <p class="text-muted mb-2">Annonces</p>
+              <h5 class="mb-0">
+                {{ annonceslength }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-sm-3">
+      <div class="card mini-stats-wid">
+        <div class="card-body">
+          <div class="media">
+            <div class="me-3 align-self-center">
+              <i class="far fa-list-alt h2 text-info mb-0"></i>
+            </div>
+            <div class="media-body">
+              <p class="text-muted mb-2">Publications</p>
+              <h5 class="mb-0">
+                {{ publicationslength }}
+              </h5>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- end row -->
+  <div class="row">
+    <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-4">Column Charts</h4>
+  
+            <apx-chart class="apex-charts" dir="ltr" [series]="basicColumChart.series" [chart]="basicColumChart.chart"
+              [plotOptions]="basicColumChart.plotOptions" [yaxis]="basicColumChart.yaxis" [grid]="basicColumChart.grid"
+              [tooltip]="basicColumChart.tooltip" [stroke]="basicColumChart.stroke"
+              [dataLabels]="basicColumChart.dataLabels" [xaxis]="basicColumChart.xaxis" [colors]="basicColumChart.colors"
+              [fill]="basicColumChart.fill">
+            </apx-chart>
+          </div>
+        </div>
+        <!--end card-->
+      </div>
+
+
+      <div class="col-lg-6">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title mb-4">Bar Chart</h4>
+            <apx-chart class="apex-charts" dir="ltr" [series]="barChart.series" [chart]="barChart.chart"
+              [plotOptions]="barChart.plotOptions" [dataLabels]="barChart.dataLabels" [xaxis]="barChart.xaxis"
+              [colors]="barChart.colors" [grid]="barChart.grid"></apx-chart>
+          </div>
+        </div>
+        <!--end card-->
+      </div>
+  </div>
+</div>
+<!-- container-fluid -->
